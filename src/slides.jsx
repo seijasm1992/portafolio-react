@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './output.css';
 
 const slides = [
@@ -17,6 +17,12 @@ function Slides() {
     const handlePrev = () => {
         setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);
     }
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            handleNext();
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [currentSlide]);
     return(
         <section className='flex flex-col items-center justify-center p-8'>
             <img src={slides[currentSlide]} alt={`Slide ${currentSlide + 1}`} />
